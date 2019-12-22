@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Заголовок страницы</title>
+  {% load staticfiles %}
+  <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" type="text/css">
+</head>
+<style>
+@media (min-width: 1200px) {
+  .container {
+    width: 1050px;
+  }
+}
+</style>
+<body>
+  <div class="jumbotron">
+    <div class="container">
+      <h1>{% include "FactSheet/includes/some_html.html" %}</h1>
+{% load crispy_forms_tags %}
+
+{% block main %}
+
+
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+
+            <!--Что в номере-->
+      <br>
+                  <p><b><font size="+2">В номерах</font></b></p>
+                                                      <div class="row">
+                    <div class="form-group col">
+    {{ form.shower|as_crispy_field }}
+          </div>
+                                                          <div class="form-group col">
+    {{ form.air_condition|as_crispy_field }}
+          </div>
+                                                          <div class="form-group col">
+    {{ form.balcony|as_crispy_field }}
+          </div>
+                                                      </div>
+
+                 <div class="row">
+                                                          <div class="form-group col">
+    {{ form.terrace|as_crispy_field }}
+          </div>
+                          <div class="form-group col">
+    {{ form.tv|as_crispy_field }}
+          </div>
+      </div>
+
+                                                            <div class="row">
+                                                          <div class="form-group col">
+    {{ form.tv_channels|as_crispy_field }}
+          </div>
+                                                          <div class="form-group col">
+    {{ form.wi_fi|as_crispy_field }}
+          </div>
+                                                          <div class="form-group col">
+    {{ form.wi_fi_price|as_crispy_field }}
+          </div>
+      </div>
+
+                                                                  <div class="row">
+                    <div class="form-group col">
+    {{ form.safe|as_crispy_field }}
+          </div>
+                                                          <div class="form-group col">
+    {{ form.safe_price|as_crispy_field }}
+          </div>
+                                                          <div class="form-group col">
+    {{ form.carpet|as_crispy_field }}
+          </div>
+                                                                      <div class="form-group col">
+    {{ form.room_service|as_crispy_field }}
+          </div>
+      </div>
+
+                                                                        <div class="row">
+                                                                             <div class="form-group col">
+    {{ form.room_clenaning|as_crispy_field }}
+          </div>
+                                                          <div class="form-group col">
+    {{ form.bed_linen_changing|as_crispy_field }}
+          </div>
+      </div>
+
+                                                                              <div class="row">
+
+                                                                                  <div class="form-group col">
+    {{ form.towel_changing|as_crispy_field }}
+          </div>
+                                                                                  <div class="form-group col">
+    {{ form.ironing|as_crispy_field }}
+          </div>
+      </div>
+                {{ form.text_block|as_crispy_field }}
+
+      <!--Пляж-->
+     <br>
+                  <p><b><font size="+2">Пляж</font></b></p>
+                                                      <div class="row">
+                    <div class="form-group col">
+    {{ form.beach_location|as_crispy_field }}
+          </div>
+                                                          <div class="form-group col">
+    {{ form.beach_location_m|as_crispy_field }}
+          </div>
+                                                          <div class="form-group col">
+    {{ form.beach_shattle|as_crispy_field }}
+          </div>
+                                                          <div class="form-group col">
+    {{ form.beach_length|as_crispy_field }}
+          </div>
+      </div>
+
+                                                      <div class="row">
+                    <div class="form-group col">
+    {{ form.beach_type|as_crispy_field }}
+          </div>
+                                                          <div class="form-group col">
+    {{ form.beach_sand|as_crispy_field }}
+          </div>
+                                                          <div class="form-group col">
+    {{ form.beach_towels|as_crispy_field }}
+          </div>
+                                                          <div class="form-group col">
+    {{ form.beach_towels_price|as_crispy_field }}
+          </div>
+      </div>
+
+                                                            <div class="row">
+                    <div class="form-group col">
+    {{ form.beach_umbrella|as_crispy_field }}
+          </div>
+                                                          <div class="form-group col">
+    {{ form.beach_umbrella_price|as_crispy_field }}
+          </div>
+                                                          <div class="form-group col">
+    {{ form.beach_mattres|as_crispy_field }}
+          </div>
+                                                          <div class="form-group col">
+    {{ form.beach_mattres_price|as_crispy_field }}
+          </div>
+      </div>
+
+                                                                  <div class="row">
+                    <div class="form-group col">
+    {{ form.beach_chaise_lounge|as_crispy_field }}
+          </div>
+                                                          <div class="form-group col">
+    {{ form.beach_chaise_lounge_price|as_crispy_field }}
+          </div>
+                                                          <div class="form-group col">
+    {{ form.beach_gazebo|as_crispy_field }}
+          </div>
+                                                          <div class="form-group col">
+    {{ form.beach_gazebo_price|as_crispy_field }}
+          </div>
+      </div>
+
+      <!--Питание: рестораны, бары, концепция Все включено-->
+
+           <br>
+                  <p><b><font size="+2">Питание</font></b></p>
+      <div class="row">
+                    <div class="form-group col-md-2">
+    {{ form.restaurant_quntity|as_crispy_field }}
+          </div>
+                                                          <div class="form-group col-md-7">
+    {{ form.main_restaurant_cusine|as_crispy_field }}
+          </div>
+                                                          <div class="form-group col-md-3">
+    {{ form.main_restaurant_working_hours|as_crispy_field }}
+          </div>
+      </div>
+
+            <div class="row">
+                    <div class="form-group col-md-2">
+    {{ form.a_la_carte_quntity|as_crispy_field }}
+          </div>
+                                                          <div class="form-group col-md-2">
+    {{ form.a_la_carte_free_quntity|as_crispy_field }}
+          </div>
+                                                          <div class="form-group col-md-8">
+    {{ form.a_la_carte_restaurant_cusine|as_crispy_field }}
+          </div>
+      </div>
+
+                  <div class="row">
+                    <div class="form-group col">
+    {{ form.bar_quntity|as_crispy_field }}
+          </div>
+                                                          <div class="form-group col">
+    {{ form.bar_pool|as_crispy_field }}
+          </div>
+                                                                                <div class="form-group col">
+    {{ form.bar_beach|as_crispy_field }}
+          </div>
+                                                                                <div class="form-group col">
+    {{ form.bar_choice|as_crispy_field }}
+          </div>
+      </div>
+
+      <div class="row">
+          <div class="form-group col">
+              {{ form.bar_cusine|as_crispy_field }}
+          </div>
+      </div>
+
+           <br>
+                  <p><b><font size="+1">Ultra/Premium/All Inclusive, что включено</font></b></p>
+                        <div class="row">
+                    <div class="form-group col">
+    {{ form.continental_breakfact|as_crispy_field }}
+          </div>
+                                                          <div class="form-group col">
+    {{ form.buffet_breakfast|as_crispy_field }}
+          </div>
+                                                <div class="form-group col">
+    {{ form.late_breakfast|as_crispy_field }}
+          </div>
+                        </div>
+      <div class="row">
+                                                <div class="form-group col">
+    {{ form.lunch_buffet|as_crispy_field }}
+          </div>
+                                                <div class="form-group col">
+    {{ form.menu_lanch|as_crispy_field }}
+          </div>
+                                                <div class="form-group col">
+    {{ form.sandwich_corner|as_crispy_field }}
+          </div>
+      </div>
+
+      <div class="row">
+                                                <div class="form-group col">
+    {{ form.coffee_and_desserts|as_crispy_field }}
+          </div>
+                                                <div class="form-group col">
+    {{ form.dinner_buffet|as_crispy_field }}
+          </div>
+                                                <div class="form-group col">
+    {{ form.dinner_menu|as_crispy_field }}
+          </div>
+      </div>
+
+      <div class="row">
+                                                <div class="form-group col">
+    {{ form.late_dinner|as_crispy_field }}
+          </div>
+                            <div class="form-group col">
+    {{ form.night_snacks|as_crispy_field }}
+          </div>
+                            <div class="form-group col">
+    {{ form.snacks_24_h|as_crispy_field }}
+          </div>
+      </div>
+
+      <div class="row">
+                            <div class="form-group col">
+    {{ form.ice_cream|as_crispy_field }}
+          </div>
+                            <div class="form-group col">
+    {{ form.fresh|as_crispy_field }}
+          </div>
+                            <div class="form-group col">
+    {{ form.soft_drinks|as_crispy_field }}
+          </div>
+      </div>
+
+      <div class="row">
+                            <div class="form-group col">
+    {{ form.local_alkohol_drinks|as_crispy_field }}
+          </div>
+                            <div class="form-group col">
+    {{ form.imported_drinks|as_crispy_field }}
+          </div>
+                            <div class="form-group col">
+    {{ form.barbeku|as_crispy_field }}
+          </div>
+      </div>
+
+      <div class="row">
+                                                        <div class="form-group col">
+    {{ form.all_inclusive_mini_bar|as_crispy_field }}
+          </div>
+      </div>
+
+                              <div class="row">
+                                                              <div class="form-group col">
+    {{ form.all_inclusive_working_hours|as_crispy_field }}
+          </div>
+                                                                                <div class="form-group col">
+    {{ form.all_inclusive_pay|as_crispy_field }}
+          </div>
+                              </div>
+      <div class="row">
+                                                          <div class="form-group col">
+    {{ form.all_inclusive_mini_bar_choice|as_crispy_field }}
+          </div>
+
+      </div>
+
+          <button id="clickSbut" type="submit" name="clickSbut" class="btn btn-primary">Отправить</button>
+
+  </form>
+
+
+<br>
+<nav aria-label="Page navigation">
+  <ul class="pagination">
+    <li class="page-item">
+      <a class="page-link" href="/factsheet/page_2/" aria-label="Previous">
+        <span aria-hidden="true">&laquo;</span>
+        <span class="sr-only">Previous</span>
+      </a>
+    </li>
+    <li class="page-item"><a class="page-link" href="/factsheet/page_1/">1</a></li>
+    <li class="page-item"><a class="page-link" href="/factsheet/page_2/">2</a></li>
+    <li class="page-item"><a class="page-link" href="/factsheet/page_3/">3</a></li>
+    <li class="page-item"><a class="page-link" href="/factsheet/page_4/">4</a></li>
+    <li class="page-item">
+      <a class="page-link" href="/factsheet/page_4/" aria-label="Next">
+        <span aria-hidden="true">&raquo;</span>
+        <span class="sr-only">Next</span>
+      </a>
+    </li>
+  </ul>
+</nav>
+
+{% endblock %}
+    </div>
+  </div>
+
+</body>
+</html>

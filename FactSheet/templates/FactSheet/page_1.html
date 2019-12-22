@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Факт-щит TUI</title>
+  {% load staticfiles %}
+  <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" type="text/css">
+</head>
+<style>
+@media (min-width: 1200px) {
+  .container {
+    width: 1050px;
+  }
+}
+</style>
+<body>
+  <div class="jumbotron">
+    <div class="container">
+      <h1>{% include "FactSheet/includes/some_html.html" %}</h1>
+{% load crispy_forms_tags %}
+
+{% block main %}
+
+
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+
+      <!--Название, звездность-->
+      <div class="row">
+      <div class="form-group col-md-8">
+        {{ form.hotel_name|as_crispy_field }}
+      </div>
+      <div class="form-group col-md-2">
+        {{ form.category|as_crispy_field }}
+      </div>
+                                          <div class="form-group col-md-2">
+      {{ form.meal|as_crispy_field }}
+                                </div>
+    </div>
+
+      <!--Адрес, телефон, емейл, сайт (2 строки)-->
+  <br>
+      <div>
+            <p><b><font size="+2">Адрес</font></b></p>
+          </div>
+                <div class="row">
+            <div class="col">
+      {{ form.adress|as_crispy_field }}
+            </div>
+                                <div class="col">
+      {{ form.telephone|as_crispy_field }}
+            </div>
+          </div>
+
+                      <div class="row">
+            <div class="col">
+      {{ form.email_block|as_crispy_field }}
+            </div>
+                                <div class="col">
+      {{ form.web_site|as_crispy_field }}
+            </div>
+          </div>
+  <br>
+      <div>
+            <p><b><font size="+2">Площадь и расстояния</font></b></p>
+          </div>
+<!--Год создания, реновации, расстояние до центра и пляжа-->
+       <div class="row">
+                                 <div class="col">
+      {{ form.construction_year|as_crispy_field }}
+                      </div>
+                      <div class="col">
+      {{ form.renovation_year|as_crispy_field }}
+                      </div>
+                       <div class="col">
+      {{ form.distance_to_center|as_crispy_field }}
+            </div>
+                                  <div class="col">
+      {{ form.distance_to_beach|as_crispy_field }}
+            </div>
+       </div>
+
+      <!--Ближайший аэропорт и расстояние до него-->
+             <div class="row">
+                                   <div class="form-group col-md-10">
+      {{ form.nearest_airport|as_crispy_field }}
+            </div>
+                  <div class="form-group col-md-2">
+      {{ form.distance_to_airport|as_crispy_field }}
+            </div>
+             </div>
+
+      <!--Чек ин, чек аут, депозит-->
+            <div class="row">
+                                          <div class="form-group col-md-3">
+      {{ form.check_in|as_crispy_field }}
+                                </div>
+                                <div class="form-group col-md-3">
+      {{ form.check_out|as_crispy_field }}
+                                </div>
+                                                <div class="form-group col-md-6">
+      {{ form.deposit|as_crispy_field }}
+                                </div>
+            </div>
+      <!--Кредитные карты-->
+        <br>
+      <div>
+            <p><b><font size="+2">Кредитные карты</font></b></p>
+          </div>
+            <div class="row">
+                                          <div class="form-group col-md-4">
+      {{ form.credit_card|as_crispy_field }}
+                                </div>
+                                <div class="form-group col-md-8">
+      {{ form.credit_card_other|as_crispy_field }}
+                                </div>
+
+            </div>
+
+      <!--Главное задание: сколько этажей-->
+      <!--Корпус анекс: количество, сколько этажей-->
+      <!--Виллы: количество-->
+      <!--Другие доп. корпуса: количество, сколько этажей-->
+        <br>
+      <div>
+            <p><b><font size="+2">Здание отеля</font></b></p>
+          </div>
+       <div class="row">
+                                     <div class="col">
+      {{ form.square|as_crispy_field }}
+            </div>
+                                 <div class="col">
+      {{ form.main_building|as_crispy_field }}
+                      </div>
+                      <div class="col">
+      {{ form.anex_quantity|as_crispy_field }}
+                      </div>
+                          <div class="col">
+      {{ form.anex_floors|as_crispy_field }}
+            </div>
+       </div>
+       <div class="row">
+                                 <div class="col">
+      {{ form.villas_quantity|as_crispy_field }}
+                      </div>
+                      <div class="col">
+      {{ form.villas_floors|as_crispy_field }}
+                      </div>
+                          <div class="col">
+      {{ form.other_buildings_quantity|as_crispy_field }}
+            </div>
+                                     <div class="col">
+      {{ form.other_buildings_floors|as_crispy_field }}
+            </div>
+       </div>
+
+      <!--Важная информация-->
+        <br>
+      <div>
+            <p><b><font size="+2">Важная информация</font></b></p>
+          </div>
+
+             <div class="row">
+                                 <div class="col">
+      {{ form.disabled|as_crispy_field }}
+                      </div>
+                      <div class="col">
+      {{ form.pets_friendly|as_crispy_field }}
+                      </div>
+                          <div class="col">
+      {{ form.non_smoking_hotel|as_crispy_field }}
+            </div>
+       </div>
+                   <div class="row">
+                                 <div class="col">
+      {{ form.adults_only|as_crispy_field }}
+                      </div>
+       </div>
+
+      <div class="row">
+                                <div class="col">
+      {{ form.adults_only_age|as_crispy_field }}
+                      </div>
+      </div>
+
+      <!--Услуги для детей-->
+        <br>
+      <div>
+      <p><b><font size="+2">Услуги для детей</font></b></p>
+          </div>
+      <div class="row">
+          <div class="col">
+    {{ form.nanny|as_crispy_field }}
+          </div>
+
+          <div class="col">
+    {{ form.child_chairs|as_crispy_field }}
+          </div>
+
+                    <div class="col">
+    {{ form.child_playground|as_crispy_field }}
+          </div>
+      </div>
+
+
+            <div class="row">
+          <div class="col">
+    {{ form.baby_cot|as_crispy_field }}
+          </div>
+
+          <div class="col">
+    {{ form.child_carriage|as_crispy_field }}
+          </div>
+
+                    <div class="col">
+    {{ form.child_food|as_crispy_field }}
+          </div>
+      </div>
+
+                  <div class="row">
+          <div class="col">
+    {{ form.baby_equipment|as_crispy_field }}
+          </div>
+
+          <div class="col">
+    {{ form.mother_corner|as_crispy_field }}
+          </div>
+
+                    <div class="col">
+    {{ form.child_restaurant|as_crispy_field }}
+          </div>
+      </div>
+
+                  <div class="row">
+          <div class="col">
+    {{ form.child_club|as_crispy_field }}
+          </div>
+
+          <div class="col">
+    {{ form.child_club_age|as_crispy_field }}
+          </div>
+      </div>
+
+                        <div class="row">
+          <div class="col">
+    {{ form.child_pool|as_crispy_field }}
+          </div>
+
+          <div class="col">
+    {{ form.child_pool_quantity|as_crispy_field }}
+          </div>
+      </div>
+          {{ form.text_block|as_crispy_field }}
+  <br>
+    <button id="clickSbut" type="submit" name="clickSbut" class="btn btn-primary">Отправить</button>
+  </form>
+<br>
+<nav aria-label="Page navigation">
+  <ul class="pagination">
+    <li class="page-item"><a class="page-link" href="/factsheet/page_1/">1</a></li>
+    <li class="page-item"><a class="page-link" href="/factsheet/page_2/">2</a></li>
+    <li class="page-item"><a class="page-link" href="/factsheet/page_3/">3</a></li>
+    <li class="page-item"><a class="page-link" href="/factsheet/page_4/">4</a></li>
+    <li class="page-item">
+      <a class="page-link" href="/factsheet/page_2/" aria-label="Next">
+        <span aria-hidden="true">&raquo;</span>
+        <span class="sr-only">Next</span>
+      </a>
+    </li>
+  </ul>
+</nav>
+{% include "pagination.html" with page=posts %}
+{% endblock %}
+    </div>
+  </div>
+
+</body>
+</html>

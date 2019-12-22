@@ -1,0 +1,1362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Заголовок страницы</title>
+  {% load staticfiles %}
+  <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" type="text/css">
+
+ <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script type="text/javascript" src="{% static 'simplePagination/jquery.simplePagination.js' %}"></script>
+    <link type="text/css" rel="stylesheet" href="{% static 'simplePagination/simplePagination.css' %}"/>
+</head>
+<style>
+@media (min-width: 1200px) {
+  .container {
+    width: 1050px;
+  }
+}
+
+</style>
+        <script>
+            jQuery(function($) {
+                var items = $("#content span");
+
+                var numItems = items.length;
+                var perPage = 4;
+
+
+                items.slice(perPage).hide();
+
+
+                $("#pagination").pagination({
+                    items: numItems,
+                    itemsOnPage: perPage,
+                    cssStyle: "light-theme",
+
+
+                    onPageClick: function(pageNumber) {
+
+                        var showFrom = perPage * (pageNumber - 1);
+                        var showTo = showFrom + perPage;
+
+
+                        items.hide()
+                             .slice(showFrom, showTo).show();
+                    }
+                });
+            });
+        </script>
+
+<body>
+
+  <div class="jumbotron">
+    <div class="container">
+      <h1>{% include "FactSheet/includes/some_html.html" %}</h1>
+{% load crispy_forms_tags %}
+
+{% block main %}
+
+
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+
+      <!--Название, звездность-->
+      <span id="content">
+
+      <span>
+      <div class="row">
+      <div class="form-group col-md-8">
+        {{ form.hotel_name|as_crispy_field }}
+      </div>
+      <div class="form-group col-md-2">
+        {{ form.category|as_crispy_field }}
+      </div>
+                                          <div class="form-group col-md-2">
+      {{ form.meal|as_crispy_field }}
+                                </div>
+    </div>
+
+      <!--Адрес, телефон, емейл, сайт (2 строки)-->
+  <br>
+      <div>
+            <p><b><font size="+2">Адрес</font></b></p>
+          </div>
+                <div class="row">
+            <div class="col">
+      {{ form.adress|as_crispy_field }}
+            </div>
+                                <div class="col">
+      {{ form.telephone|as_crispy_field }}
+            </div>
+          </div>
+
+                      <div class="row">
+            <div class="col">
+      {{ form.email_block|as_crispy_field }}
+            </div>
+                                <div class="col">
+      {{ form.web_site|as_crispy_field }}
+            </div>
+          </div>
+  <br>
+      <div>
+            <p><b><font size="+2">Площадь и расстояния</font></b></p>
+          </div>
+<!--Год создания, реновации, расстояние до центра и пляжа-->
+       <div class="row">
+                                 <div class="col">
+      {{ form.construction_year|as_crispy_field }}
+                      </div>
+                      <div class="col">
+      {{ form.renovation_year|as_crispy_field }}
+                      </div>
+                       <div class="col">
+      {{ form.distance_to_center|as_crispy_field }}
+            </div>
+                                  <div class="col">
+      {{ form.distance_to_beach|as_crispy_field }}
+            </div>
+       </div>
+
+      <!--Ближайший аэропорт и расстояние до него-->
+             <div class="row">
+                                   <div class="form-group col-md-10">
+      {{ form.nearest_airport|as_crispy_field }}
+            </div>
+                  <div class="form-group col-md-2">
+      {{ form.distance_to_airport|as_crispy_field }}
+            </div>
+             </div>
+
+      <!--Чек ин, чек аут, депозит-->
+            <div class="row">
+                                          <div class="form-group col-md-3">
+      {{ form.check_in|as_crispy_field }}
+                                </div>
+                                <div class="form-group col-md-3">
+      {{ form.check_out|as_crispy_field }}
+                                </div>
+                                                <div class="form-group col-md-6">
+      {{ form.deposit|as_crispy_field }}
+                                </div>
+            </div>
+      <!--Кредитные карты-->
+        <br>
+      <div>
+            <p><b><font size="+2">Кредитные карты</font></b></p>
+          </div>
+            <div class="row">
+                                          <div class="form-group col-md-4">
+      {{ form.credit_card|as_crispy_field }}
+                                </div>
+                                <div class="form-group col-md-8">
+      {{ form.credit_card_other|as_crispy_field }}
+                                </div>
+
+            </div>
+
+      <!--Главное задание: сколько этажей-->
+      <!--Корпус анекс: количество, сколько этажей-->
+      <!--Виллы: количество-->
+      <!--Другие доп. корпуса: количество, сколько этажей-->
+        <br>
+      <div>
+            <p><b><font size="+2">Здание отеля</font></b></p>
+          </div>
+       <div class="row">
+                                     <div class="col">
+      {{ form.square|as_crispy_field }}
+            </div>
+                                 <div class="col">
+      {{ form.main_building|as_crispy_field }}
+                      </div>
+                      <div class="col">
+      {{ form.anex_quantity|as_crispy_field }}
+                      </div>
+                          <div class="col">
+      {{ form.anex_floors|as_crispy_field }}
+            </div>
+       </div>
+       <div class="row">
+                                 <div class="col">
+      {{ form.villas_quantity|as_crispy_field }}
+                      </div>
+                      <div class="col">
+      {{ form.villas_floors|as_crispy_field }}
+                      </div>
+                          <div class="col">
+      {{ form.other_buildings_quantity|as_crispy_field }}
+            </div>
+                                     <div class="col">
+      {{ form.other_buildings_floors|as_crispy_field }}
+            </div>
+       </div>
+
+      <!--Важная информация-->
+        <br>
+      <div>
+            <p><b><font size="+2">Важная информация</font></b></p>
+          </div>
+
+             <div class="row">
+                                 <div class="col">
+      {{ form.disabled|as_crispy_field }}
+                      </div>
+                      <div class="col">
+      {{ form.pets_friendly|as_crispy_field }}
+                      </div>
+                          <div class="col">
+      {{ form.non_smoking_hotel|as_crispy_field }}
+            </div>
+       </div>
+                   <div class="row">
+                                 <div class="col">
+      {{ form.adults_only|as_crispy_field }}
+                      </div>
+       </div>
+
+      <div class="row">
+                                <div class="col">
+      {{ form.adults_only_age|as_crispy_field }}
+                      </div>
+      </div>
+
+      <!--Услуги для детей-->
+        <br>
+      <div>
+      <p><b><font size="+2">Услуги для детей</font></b></p>
+          </div>
+      <div class="row">
+          <div class="col">
+    {{ form.nanny|as_crispy_field }}
+          </div>
+
+          <div class="col">
+    {{ form.child_chairs|as_crispy_field }}
+          </div>
+
+                    <div class="col">
+    {{ form.child_playground|as_crispy_field }}
+          </div>
+      </div>
+
+
+            <div class="row">
+          <div class="col">
+    {{ form.baby_cot|as_crispy_field }}
+          </div>
+
+          <div class="col">
+    {{ form.child_carriage|as_crispy_field }}
+          </div>
+
+                    <div class="col">
+    {{ form.child_food|as_crispy_field }}
+          </div>
+      </div>
+
+                  <div class="row">
+          <div class="col">
+    {{ form.baby_equipment|as_crispy_field }}
+          </div>
+
+          <div class="col">
+    {{ form.mother_corner|as_crispy_field }}
+          </div>
+
+                    <div class="col">
+    {{ form.child_restaurant|as_crispy_field }}
+          </div>
+      </div>
+
+                  <div class="row">
+          <div class="col">
+    {{ form.child_club|as_crispy_field }}
+          </div>
+
+          <div class="col">
+    {{ form.child_club_age|as_crispy_field }}
+          </div>
+      </div>
+
+                        <div class="row">
+          <div class="col">
+    {{ form.child_pool|as_crispy_field }}
+          </div>
+
+          <div class="col">
+    {{ form.child_pool_quantity|as_crispy_field }}
+          </div>
+      </div>
+          {{ form.text_block|as_crispy_field }}
+
+      </span>
+          <span>
+           <!--Типы номеров-->
+        <br>
+      <div>
+      <p><b><font size="+2">Типы номеров</font></b></p>
+          </div>
+      <div class="row">
+                <div class="col">
+    {{ form.total_room_numbers|as_crispy_field }}
+          </div>
+      </div>
+                        <div class="row">
+          <div class="col">
+    {{ form.room_type_name|as_crispy_field }}
+          </div>
+      </div>
+
+                              <div class="row">
+          <div class="col">
+    {{ form.room_type_numbers|as_crispy_field }}
+          </div>
+
+          <div class="col">
+    {{ form.room_type_size|as_crispy_field }}
+          </div>
+                                            <div class="col">
+    {{ form.room_type_max_pax|as_crispy_field }}
+          </div>
+                                            <div class="col">
+    {{ form.room_type_numbers|as_crispy_field }}
+          </div>
+      </div>
+
+                                    <div class="row">
+          <div class="form-group col-md-2">
+    {{ form.room_type_view|as_crispy_field }}
+          </div>
+                                            <div class="form-group col-md-10">
+    {{ form.room_type_view_other|as_crispy_field }}
+          </div>
+      </div>
+
+                              <div class="row">
+          <div class="form-group col-md-3">
+    {{ form.room_type_beds|as_crispy_field }}
+          </div>
+                                            <div class="form-group col-md-9">
+    {{ form.room_type_beds_other|as_crispy_field }}
+          </div>
+      </div>
+
+                                    <div class="row">
+                                                 <div class="form-group col">
+    {{ form.connected_rooms|as_crispy_field }}
+          </div>
+          <div class="form-group col">
+    {{ form.door_rooms|as_crispy_field }}
+          </div>
+                                            <div class="form-group col">
+    {{ form.living_room|as_crispy_field }}
+          </div>
+      </div>
+
+                                    <div class="row">
+          <div class="col">
+    {{ form.room_type_building|as_crispy_field }}
+          </div>
+
+          <div class="col">
+    {{ form.room_type_extra_beds|as_crispy_field }}
+          </div>
+                                            <div class="col">
+    {{ form.room_type_bedrooms|as_crispy_field }}
+          </div>
+      </div>
+                                                 <div class="row">
+                    <div class="form-group col-md-9">
+    {{ form.room_type_areas|as_crispy_field }}
+          </div>
+                                                    <div class="form-group col-md-3">
+    {{ form.shower|as_crispy_field }}
+          </div>
+                                                 </div>
+      <div class="row">
+                                                     <div class="form-group col">
+    {{ form.hair_dryer|as_crispy_field }}
+          </div>
+                                                     <div class="form-group col">
+    {{ form.roba_and_slippers|as_crispy_field }}
+          </div>
+                                                     <div class="form-group col">
+    {{ form.jakuzi|as_crispy_field }}
+          </div>
+      </div>
+          {{ form.hotel_images|as_crispy_field }}
+        <br>
+<!--Номер 2-->
+                         <div class="row">
+          <div class="col">
+    {{ form.room_type_name|as_crispy_field }}
+          </div>
+      </div>
+
+                              <div class="row">
+          <div class="col">
+    {{ form.room_type_numbers|as_crispy_field }}
+          </div>
+
+          <div class="col">
+    {{ form.room_type_size|as_crispy_field }}
+          </div>
+                                            <div class="col">
+    {{ form.room_type_max_pax|as_crispy_field }}
+          </div>
+                                            <div class="col">
+    {{ form.room_type_numbers|as_crispy_field }}
+          </div>
+      </div>
+
+                                    <div class="row">
+          <div class="form-group col-md-2">
+    {{ form.room_type_view|as_crispy_field }}
+          </div>
+                                            <div class="form-group col-md-10">
+    {{ form.room_type_view_other|as_crispy_field }}
+          </div>
+      </div>
+
+                              <div class="row">
+          <div class="form-group col-md-3">
+    {{ form.room_type_beds|as_crispy_field }}
+          </div>
+                                            <div class="form-group col-md-9">
+    {{ form.room_type_beds_other|as_crispy_field }}
+          </div>
+      </div>
+
+                                    <div class="row">
+                                                 <div class="form-group col">
+    {{ form.connected_rooms|as_crispy_field }}
+          </div>
+          <div class="form-group col">
+    {{ form.door_rooms|as_crispy_field }}
+          </div>
+                                            <div class="form-group col">
+    {{ form.living_room|as_crispy_field }}
+          </div>
+      </div>
+
+                                    <div class="row">
+          <div class="col">
+    {{ form.room_type_building|as_crispy_field }}
+          </div>
+
+          <div class="col">
+    {{ form.room_type_extra_beds|as_crispy_field }}
+          </div>
+                                            <div class="col">
+    {{ form.room_type_bedrooms|as_crispy_field }}
+          </div>
+      </div>
+                                                 <div class="row">
+                    <div class="form-group col-md-9">
+    {{ form.room_type_areas|as_crispy_field }}
+          </div>
+                                                    <div class="form-group col-md-3">
+    {{ form.shower|as_crispy_field }}
+          </div>
+                                                 </div>
+      <div class="row">
+                                                     <div class="form-group col">
+    {{ form.hair_dryer|as_crispy_field }}
+          </div>
+                                                     <div class="form-group col">
+    {{ form.roba_and_slippers|as_crispy_field }}
+          </div>
+                                                     <div class="form-group col">
+    {{ form.jakuzi|as_crispy_field }}
+          </div>
+      </div>
+          {{ form.hotel_images|as_crispy_field }}
+        <br>
+      <!--Номер 3-->
+                         <div class="row">
+          <div class="col">
+    {{ form.room_type_name|as_crispy_field }}
+          </div>
+      </div>
+
+                              <div class="row">
+          <div class="col">
+    {{ form.room_type_numbers|as_crispy_field }}
+          </div>
+
+          <div class="col">
+    {{ form.room_type_size|as_crispy_field }}
+          </div>
+                                            <div class="col">
+    {{ form.room_type_max_pax|as_crispy_field }}
+          </div>
+                                            <div class="col">
+    {{ form.room_type_numbers|as_crispy_field }}
+          </div>
+      </div>
+
+                                    <div class="row">
+          <div class="form-group col-md-2">
+    {{ form.room_type_view|as_crispy_field }}
+          </div>
+                                            <div class="form-group col-md-10">
+    {{ form.room_type_view_other|as_crispy_field }}
+          </div>
+      </div>
+
+                              <div class="row">
+          <div class="form-group col-md-3">
+    {{ form.room_type_beds|as_crispy_field }}
+          </div>
+                                            <div class="form-group col-md-9">
+    {{ form.room_type_beds_other|as_crispy_field }}
+          </div>
+      </div>
+
+                                    <div class="row">
+                                                 <div class="form-group col">
+    {{ form.connected_rooms|as_crispy_field }}
+          </div>
+          <div class="form-group col">
+    {{ form.door_rooms|as_crispy_field }}
+          </div>
+                                            <div class="form-group col">
+    {{ form.living_room|as_crispy_field }}
+          </div>
+      </div>
+
+                                    <div class="row">
+          <div class="col">
+    {{ form.room_type_building|as_crispy_field }}
+          </div>
+
+          <div class="col">
+    {{ form.room_type_extra_beds|as_crispy_field }}
+          </div>
+                                            <div class="col">
+    {{ form.room_type_bedrooms|as_crispy_field }}
+          </div>
+      </div>
+                                                 <div class="row">
+                    <div class="form-group col-md-9">
+    {{ form.room_type_areas|as_crispy_field }}
+          </div>
+                                                    <div class="form-group col-md-3">
+    {{ form.shower|as_crispy_field }}
+          </div>
+                                                 </div>
+      <div class="row">
+                                                     <div class="form-group col">
+    {{ form.hair_dryer|as_crispy_field }}
+          </div>
+                                                     <div class="form-group col">
+    {{ form.roba_and_slippers|as_crispy_field }}
+          </div>
+                                                     <div class="form-group col">
+    {{ form.jakuzi|as_crispy_field }}
+          </div>
+      </div>
+          {{ form.hotel_images|as_crispy_field }}
+      <br>
+      <!--Номер 4-->
+                         <div class="row">
+          <div class="col">
+    {{ form.room_type_name|as_crispy_field }}
+          </div>
+      </div>
+
+                              <div class="row">
+          <div class="col">
+    {{ form.room_type_numbers|as_crispy_field }}
+          </div>
+
+          <div class="col">
+    {{ form.room_type_size|as_crispy_field }}
+          </div>
+                                            <div class="col">
+    {{ form.room_type_max_pax|as_crispy_field }}
+          </div>
+                                            <div class="col">
+    {{ form.room_type_numbers|as_crispy_field }}
+          </div>
+      </div>
+
+                                    <div class="row">
+          <div class="form-group col-md-2">
+    {{ form.room_type_view|as_crispy_field }}
+          </div>
+                                            <div class="form-group col-md-10">
+    {{ form.room_type_view_other|as_crispy_field }}
+          </div>
+      </div>
+
+                              <div class="row">
+          <div class="form-group col-md-3">
+    {{ form.room_type_beds|as_crispy_field }}
+          </div>
+                                            <div class="form-group col-md-9">
+    {{ form.room_type_beds_other|as_crispy_field }}
+          </div>
+      </div>
+
+                                    <div class="row">
+                                                 <div class="form-group col">
+    {{ form.connected_rooms|as_crispy_field }}
+          </div>
+          <div class="form-group col">
+    {{ form.door_rooms|as_crispy_field }}
+          </div>
+                                            <div class="form-group col">
+    {{ form.living_room|as_crispy_field }}
+          </div>
+      </div>
+
+                                    <div class="row">
+          <div class="col">
+    {{ form.room_type_building|as_crispy_field }}
+          </div>
+
+          <div class="col">
+    {{ form.room_type_extra_beds|as_crispy_field }}
+          </div>
+                                            <div class="col">
+    {{ form.room_type_bedrooms|as_crispy_field }}
+          </div>
+      </div>
+                                                 <div class="row">
+                    <div class="form-group col-md-9">
+    {{ form.room_type_areas|as_crispy_field }}
+          </div>
+                                                    <div class="form-group col-md-3">
+    {{ form.shower|as_crispy_field }}
+          </div>
+                                                 </div>
+      <div class="row">
+                                                     <div class="form-group col">
+    {{ form.hair_dryer|as_crispy_field }}
+          </div>
+                                                     <div class="form-group col">
+    {{ form.roba_and_slippers|as_crispy_field }}
+          </div>
+                                                     <div class="form-group col">
+    {{ form.jakuzi|as_crispy_field }}
+          </div>
+      </div>
+          {{ form.hotel_images|as_crispy_field }}
+        <br>
+      <!--Номер 5-->
+                         <div class="row">
+          <div class="col">
+    {{ form.room_type_name|as_crispy_field }}
+          </div>
+      </div>
+
+                              <div class="row">
+          <div class="col">
+    {{ form.room_type_numbers|as_crispy_field }}
+          </div>
+
+          <div class="col">
+    {{ form.room_type_size|as_crispy_field }}
+          </div>
+                                            <div class="col">
+    {{ form.room_type_max_pax|as_crispy_field }}
+          </div>
+                                            <div class="col">
+    {{ form.room_type_numbers|as_crispy_field }}
+          </div>
+      </div>
+
+                                    <div class="row">
+          <div class="form-group col-md-2">
+    {{ form.room_type_view|as_crispy_field }}
+          </div>
+                                            <div class="form-group col-md-10">
+    {{ form.room_type_view_other|as_crispy_field }}
+          </div>
+      </div>
+
+                              <div class="row">
+          <div class="form-group col-md-3">
+    {{ form.room_type_beds|as_crispy_field }}
+          </div>
+                                            <div class="form-group col-md-9">
+    {{ form.room_type_beds_other|as_crispy_field }}
+          </div>
+      </div>
+
+                                    <div class="row">
+                                                 <div class="form-group col">
+    {{ form.connected_rooms|as_crispy_field }}
+          </div>
+          <div class="form-group col">
+    {{ form.door_rooms|as_crispy_field }}
+          </div>
+                                            <div class="form-group col">
+    {{ form.living_room|as_crispy_field }}
+          </div>
+      </div>
+
+                                    <div class="row">
+          <div class="col">
+    {{ form.room_type_building|as_crispy_field }}
+          </div>
+
+          <div class="col">
+    {{ form.room_type_extra_beds|as_crispy_field }}
+          </div>
+                                            <div class="col">
+    {{ form.room_type_bedrooms|as_crispy_field }}
+          </div>
+      </div>
+                                                 <div class="row">
+                    <div class="form-group col-md-9">
+    {{ form.room_type_areas|as_crispy_field }}
+          </div>
+                                                    <div class="form-group col-md-3">
+    {{ form.shower|as_crispy_field }}
+          </div>
+                                                 </div>
+      <div class="row">
+                                                     <div class="form-group col">
+    {{ form.hair_dryer|as_crispy_field }}
+          </div>
+                                                     <div class="form-group col">
+    {{ form.roba_and_slippers|as_crispy_field }}
+          </div>
+                                                     <div class="form-group col">
+    {{ form.jakuzi|as_crispy_field }}
+          </div>
+      </div>
+          {{ form.hotel_images|as_crispy_field }}
+        <br>
+      <!--Номер 6-->
+                          <div class="row">
+          <div class="col">
+    {{ form.room_type_name|as_crispy_field }}
+          </div>
+      </div>
+
+                              <div class="row">
+          <div class="col">
+    {{ form.room_type_numbers|as_crispy_field }}
+          </div>
+
+          <div class="col">
+    {{ form.room_type_size|as_crispy_field }}
+          </div>
+                                            <div class="col">
+    {{ form.room_type_max_pax|as_crispy_field }}
+          </div>
+                                            <div class="col">
+    {{ form.room_type_numbers|as_crispy_field }}
+          </div>
+      </div>
+
+                                    <div class="row">
+          <div class="form-group col-md-2">
+    {{ form.room_type_view|as_crispy_field }}
+          </div>
+                                            <div class="form-group col-md-10">
+    {{ form.room_type_view_other|as_crispy_field }}
+          </div>
+      </div>
+
+                              <div class="row">
+          <div class="form-group col-md-3">
+    {{ form.room_type_beds|as_crispy_field }}
+          </div>
+                                            <div class="form-group col-md-9">
+    {{ form.room_type_beds_other|as_crispy_field }}
+          </div>
+      </div>
+
+                                    <div class="row">
+                                                 <div class="form-group col">
+    {{ form.connected_rooms|as_crispy_field }}
+          </div>
+          <div class="form-group col">
+    {{ form.door_rooms|as_crispy_field }}
+          </div>
+                                            <div class="form-group col">
+    {{ form.living_room|as_crispy_field }}
+          </div>
+      </div>
+
+                                    <div class="row">
+          <div class="col">
+    {{ form.room_type_building|as_crispy_field }}
+          </div>
+
+          <div class="col">
+    {{ form.room_type_extra_beds|as_crispy_field }}
+          </div>
+                                            <div class="col">
+    {{ form.room_type_bedrooms|as_crispy_field }}
+          </div>
+      </div>
+                                                 <div class="row">
+                    <div class="form-group col-md-9">
+    {{ form.room_type_areas|as_crispy_field }}
+          </div>
+                                                    <div class="form-group col-md-3">
+    {{ form.shower|as_crispy_field }}
+          </div>
+                                                 </div>
+      <div class="row">
+                                                     <div class="form-group col">
+    {{ form.hair_dryer|as_crispy_field }}
+          </div>
+                                                     <div class="form-group col">
+    {{ form.roba_and_slippers|as_crispy_field }}
+          </div>
+                                                     <div class="form-group col">
+    {{ form.jakuzi|as_crispy_field }}
+          </div>
+      </div>
+          {{ form.hotel_images|as_crispy_field }}
+                            </span>
+
+          <span>
+                          <!--Что в номере-->
+      <br>
+                  <p><b><font size="+2">В номерах</font></b></p>
+                                                      <div class="row">
+                    <div class="form-group col">
+    {{ form.shower|as_crispy_field }}
+          </div>
+                                                          <div class="form-group col">
+    {{ form.air_condition|as_crispy_field }}
+          </div>
+                                                          <div class="form-group col">
+    {{ form.balcony|as_crispy_field }}
+          </div>
+                                                      </div>
+
+                 <div class="row">
+                                                          <div class="form-group col">
+    {{ form.terrace|as_crispy_field }}
+          </div>
+                          <div class="form-group col">
+    {{ form.tv|as_crispy_field }}
+          </div>
+      </div>
+
+                                                            <div class="row">
+                                                          <div class="form-group col">
+    {{ form.tv_channels|as_crispy_field }}
+          </div>
+                                                          <div class="form-group col">
+    {{ form.wi_fi|as_crispy_field }}
+          </div>
+                                                          <div class="form-group col">
+    {{ form.wi_fi_price|as_crispy_field }}
+          </div>
+      </div>
+
+                                                                  <div class="row">
+                    <div class="form-group col">
+    {{ form.safe|as_crispy_field }}
+          </div>
+                                                          <div class="form-group col">
+    {{ form.safe_price|as_crispy_field }}
+          </div>
+                                                          <div class="form-group col">
+    {{ form.carpet|as_crispy_field }}
+          </div>
+                                                                      <div class="form-group col">
+    {{ form.room_service|as_crispy_field }}
+          </div>
+      </div>
+
+                                                                        <div class="row">
+                                                                             <div class="form-group col">
+    {{ form.room_clenaning|as_crispy_field }}
+          </div>
+                                                          <div class="form-group col">
+    {{ form.bed_linen_changing|as_crispy_field }}
+          </div>
+      </div>
+
+                                                                              <div class="row">
+
+                                                                                  <div class="form-group col">
+    {{ form.towel_changing|as_crispy_field }}
+          </div>
+                                                                                  <div class="form-group col">
+    {{ form.ironing|as_crispy_field }}
+          </div>
+      </div>
+                {{ form.text_block|as_crispy_field }}
+
+      <!--Пляж-->
+     <br>
+                  <p><b><font size="+2">Пляж</font></b></p>
+                                                      <div class="row">
+                    <div class="form-group col">
+    {{ form.beach_location|as_crispy_field }}
+          </div>
+                                                          <div class="form-group col">
+    {{ form.beach_location_m|as_crispy_field }}
+          </div>
+                                                          <div class="form-group col">
+    {{ form.beach_shattle|as_crispy_field }}
+          </div>
+                                                          <div class="form-group col">
+    {{ form.beach_length|as_crispy_field }}
+          </div>
+      </div>
+
+                                                      <div class="row">
+                    <div class="form-group col">
+    {{ form.beach_type|as_crispy_field }}
+          </div>
+                                                          <div class="form-group col">
+    {{ form.beach_sand|as_crispy_field }}
+          </div>
+                                                          <div class="form-group col">
+    {{ form.beach_towels|as_crispy_field }}
+          </div>
+                                                          <div class="form-group col">
+    {{ form.beach_towels_price|as_crispy_field }}
+          </div>
+      </div>
+
+                                                            <div class="row">
+                    <div class="form-group col">
+    {{ form.beach_umbrella|as_crispy_field }}
+          </div>
+                                                          <div class="form-group col">
+    {{ form.beach_umbrella_price|as_crispy_field }}
+          </div>
+                                                          <div class="form-group col">
+    {{ form.beach_mattres|as_crispy_field }}
+          </div>
+                                                          <div class="form-group col">
+    {{ form.beach_mattres_price|as_crispy_field }}
+          </div>
+      </div>
+
+                                                                  <div class="row">
+                    <div class="form-group col">
+    {{ form.beach_chaise_lounge|as_crispy_field }}
+          </div>
+                                                          <div class="form-group col">
+    {{ form.beach_chaise_lounge_price|as_crispy_field }}
+          </div>
+                                                          <div class="form-group col">
+    {{ form.beach_gazebo|as_crispy_field }}
+          </div>
+                                                          <div class="form-group col">
+    {{ form.beach_gazebo_price|as_crispy_field }}
+          </div>
+      </div>
+
+      <!--Питание: рестораны, бары, концепция Все включено-->
+
+           <br>
+                  <p><b><font size="+2">Питание</font></b></p>
+      <div class="row">
+                    <div class="form-group col-md-2">
+    {{ form.restaurant_quntity|as_crispy_field }}
+          </div>
+                                                          <div class="form-group col-md-7">
+    {{ form.main_restaurant_cusine|as_crispy_field }}
+          </div>
+                                                          <div class="form-group col-md-3">
+    {{ form.main_restaurant_working_hours|as_crispy_field }}
+          </div>
+      </div>
+
+            <div class="row">
+                    <div class="form-group col-md-2">
+    {{ form.a_la_carte_quntity|as_crispy_field }}
+          </div>
+                                                          <div class="form-group col-md-2">
+    {{ form.a_la_carte_free_quntity|as_crispy_field }}
+          </div>
+                                                          <div class="form-group col-md-8">
+    {{ form.a_la_carte_restaurant_cusine|as_crispy_field }}
+          </div>
+      </div>
+
+                  <div class="row">
+                    <div class="form-group col">
+    {{ form.bar_quntity|as_crispy_field }}
+          </div>
+                                                          <div class="form-group col">
+    {{ form.bar_pool|as_crispy_field }}
+          </div>
+                                                                                <div class="form-group col">
+    {{ form.bar_beach|as_crispy_field }}
+          </div>
+                                                                                <div class="form-group col">
+    {{ form.bar_choice|as_crispy_field }}
+          </div>
+      </div>
+
+      <div class="row">
+          <div class="form-group col">
+              {{ form.bar_cusine|as_crispy_field }}
+          </div>
+      </div>
+
+           <br>
+                  <p><b><font size="+1">Ultra/Premium/All Inclusive, что включено</font></b></p>
+                        <div class="row">
+                    <div class="form-group col">
+    {{ form.continental_breakfact|as_crispy_field }}
+          </div>
+                                                          <div class="form-group col">
+    {{ form.buffet_breakfast|as_crispy_field }}
+          </div>
+                                                <div class="form-group col">
+    {{ form.late_breakfast|as_crispy_field }}
+          </div>
+                        </div>
+      <div class="row">
+                                                <div class="form-group col">
+    {{ form.lunch_buffet|as_crispy_field }}
+          </div>
+                                                <div class="form-group col">
+    {{ form.menu_lanch|as_crispy_field }}
+          </div>
+                                                <div class="form-group col">
+    {{ form.sandwich_corner|as_crispy_field }}
+          </div>
+      </div>
+
+      <div class="row">
+                                                <div class="form-group col">
+    {{ form.coffee_and_desserts|as_crispy_field }}
+          </div>
+                                                <div class="form-group col">
+    {{ form.dinner_buffet|as_crispy_field }}
+          </div>
+                                                <div class="form-group col">
+    {{ form.dinner_menu|as_crispy_field }}
+          </div>
+      </div>
+
+      <div class="row">
+                                                <div class="form-group col">
+    {{ form.late_dinner|as_crispy_field }}
+          </div>
+                            <div class="form-group col">
+    {{ form.night_snacks|as_crispy_field }}
+          </div>
+                            <div class="form-group col">
+    {{ form.snacks_24_h|as_crispy_field }}
+          </div>
+      </div>
+
+      <div class="row">
+                            <div class="form-group col">
+    {{ form.ice_cream|as_crispy_field }}
+          </div>
+                            <div class="form-group col">
+    {{ form.fresh|as_crispy_field }}
+          </div>
+                            <div class="form-group col">
+    {{ form.soft_drinks|as_crispy_field }}
+          </div>
+      </div>
+
+      <div class="row">
+                            <div class="form-group col">
+    {{ form.local_alkohol_drinks|as_crispy_field }}
+          </div>
+                            <div class="form-group col">
+    {{ form.imported_drinks|as_crispy_field }}
+          </div>
+                            <div class="form-group col">
+    {{ form.barbeku|as_crispy_field }}
+          </div>
+      </div>
+
+      <div class="row">
+                                                        <div class="form-group col">
+    {{ form.all_inclusive_mini_bar|as_crispy_field }}
+          </div>
+      </div>
+
+                              <div class="row">
+                                                              <div class="form-group col">
+    {{ form.all_inclusive_working_hours|as_crispy_field }}
+          </div>
+                                                                                <div class="form-group col">
+    {{ form.all_inclusive_pay|as_crispy_field }}
+          </div>
+                              </div>
+      <div class="row">
+                                                          <div class="form-group col">
+    {{ form.all_inclusive_mini_bar_choice|as_crispy_field }}
+          </div>
+
+      </div>
+          </span>
+
+
+          <span>
+                          <!--Развлечения и спорт-->
+                 <br>
+                  <p><b><font size="+2">Развлечения и спорт</font></b></p>
+
+                                          <div class="row">
+                                                          <div class="form-group col">
+    {{ form.aerobics|as_crispy_field }}
+          </div>
+                                                          <div class="form-group col">
+    {{ form.aquaaerobics|as_crispy_field }}
+          </div>
+                                        <div class="form-group col">
+    {{ form.basketball|as_crispy_field }}
+          </div>
+      </div>
+
+                                                <div class="row">
+                                                          <div class="form-group col">
+    {{ form.football|as_crispy_field }}
+          </div>
+                                                          <div class="form-group col">
+    {{ form.volleyboll|as_crispy_field }}
+          </div>
+                                        <div class="form-group col">
+    {{ form.bocce|as_crispy_field }}
+          </div>
+      </div>
+
+                                                      <div class="row">
+                                                          <div class="form-group col">
+    {{ form.mini_football|as_crispy_field }}
+          </div>
+                                                          <div class="form-group col">
+    {{ form.golf|as_crispy_field }}
+          </div>
+                                        <div class="form-group col">
+    {{ form.gym|as_crispy_field }}
+          </div>
+      </div>
+
+                                                                       <div class="row">
+                                                          <div class="form-group col">
+    {{ form.animation|as_crispy_field }}
+          </div>
+                                                          <div class="form-group col">
+    {{ form.children_animation|as_crispy_field }}
+          </div>
+                                                                      <div class="form-group col">
+    {{ form.live_music|as_crispy_field }}
+          </div>
+      </div>
+
+                                                            <div class="row">
+                                                          <div class="form-group col">
+    {{ form.tennis_cort|as_crispy_field }}
+          </div>
+                                                          <div class="form-group col">
+    {{ form.table_tennis|as_crispy_field }}
+          </div>
+      </div>
+
+
+                                    <div class="row">
+                                                          <div class="form-group col">
+    {{ form.katamarans|as_crispy_field }}
+          </div>
+                                        <div class="form-group col">
+    {{ form.bicykle_rent|as_crispy_field }}
+          </div>
+                                        <div class="form-group col">
+    {{ form.water_sport|as_crispy_field }}
+          </div>
+      </div>
+
+      <div class="row">
+                                        <div class="form-group col">
+    {{ form.billiard|as_crispy_field }}
+          </div>
+                                                          <div class="form-group col">
+    {{ form.bowling|as_crispy_field }}
+          </div>
+                                                          <div class="form-group col">
+    {{ form.casino|as_crispy_field }}
+          </div>
+                                        <div class="form-group col">
+    {{ form.cinema|as_crispy_field }}
+          </div>
+      </div>
+
+
+            <div class="row">
+                                        <div class="form-group col">
+    {{ form.disco|as_crispy_field }}
+          </div>
+                                                          <div class="form-group col">
+    {{ form.night_club|as_crispy_field }}
+          </div>
+                                                          <div class="form-group col">
+    {{ form.videogames|as_crispy_field }}
+          </div>
+                                        <div class="form-group col">
+    {{ form.tennis_equipment|as_crispy_field }}
+          </div>
+      </div>
+
+                  <div class="row">
+                                        <div class="form-group col">
+    {{ form.diving|as_crispy_field }}
+          </div>
+                                                          <div class="form-group col">
+    {{ form.serfing|as_crispy_field }}
+          </div>
+                                                          <div class="form-group col">
+    {{ form.water_polo|as_crispy_field }}
+          </div>
+                                        <div class="form-group col">
+    {{ form.jacuzzi|as_crispy_field }}
+          </div>
+      </div>
+
+                        <div class="row">
+                                        <div class="form-group col">
+    {{ form.spa|as_crispy_field }}
+          </div>
+                                                          <div class="form-group col">
+    {{ form.massage|as_crispy_field }}
+          </div>
+                                                          <div class="form-group col">
+    {{ form.spa_treatment|as_crispy_field }}
+          </div>
+      </div>
+
+                       <br>
+                  <p><b><font size="+2">Бассейны</font></b></p>
+                              <div class="row">
+                                        <div class="form-group col">
+    {{ form.outdoor_swimming_pool|as_crispy_field }}
+          </div>
+                                                          <div class="form-group col">
+    {{ form.outdoor_swimming_pool_heating|as_crispy_field }}
+          </div>
+                                                          <div class="form-group col">
+    {{ form.outdoor_swimming_pool_for_children|as_crispy_field }}
+          </div>
+                                  <div class="form-group col">
+    {{ form.outdoor_swimming_pool_with_sea_water|as_crispy_field }}
+          </div>
+      </div>
+
+                                    <div class="row">
+                                        <div class="form-group col">
+    {{ form.indoor_swimming_pool|as_crispy_field }}
+          </div>
+                                                          <div class="form-group col">
+    {{ form.indoor_swimming_pool_heating|as_crispy_field }}
+          </div>
+                                                          <div class="form-group col">
+    {{ form.indoor_swimming_pool_for_children|as_crispy_field }}
+          </div>
+                                  <div class="form-group col">
+    {{ form.indoor_swimming_pool_with_sea_water|as_crispy_field }}
+          </div>
+      </div>
+
+                                          <div class="row">
+                                        <div class="form-group col">
+    {{ form.aquapark|as_crispy_field }}
+          </div>
+                                                          <div class="form-group col">
+    {{ form.water_slides|as_crispy_field }}
+          </div>
+                                                          <div class="form-group col">
+    {{ form.text_block|as_crispy_field }}
+          </div>
+      </div>
+      <!--Услуги на территории-->
+
+                             <br>
+                  <p><b><font size="+2">Услуги на территории</font></b></p>
+
+                                                      <div class="row">
+                                                          <div class="form-group col">
+    {{ form.beauty_salon|as_crispy_field }}
+          </div>
+                                                          <div class="form-group col">
+    {{ form.hair_dresser|as_crispy_field }}
+          </div>
+                                                          <div class="form-group col">
+    {{ form.shop|as_crispy_field }}
+          </div>
+      </div>
+
+                                                            <div class="row">
+                                                          <div class="form-group col">
+    {{ form.laundry|as_crispy_field }}
+          </div>
+                                                          <div class="form-group col">
+    {{ form.amphiteatre|as_crispy_field }}
+          </div>
+                                                          <div class="form-group col">
+    {{ form.atm|as_crispy_field }}
+          </div>
+      </div>
+
+
+                                                                  <div class="row">
+                                                          <div class="form-group col">
+    {{ form.exchange|as_crispy_field }}
+          </div>
+                                                          <div class="form-group col">
+    {{ form.parking|as_crispy_field }}
+          </div>
+                                                          <div class="form-group col">
+    {{ form.library|as_crispy_field }}
+          </div>
+      </div>
+
+                                                <div class="row">
+                                                          <div class="form-group col">
+    {{ form.conference_room|as_crispy_field }}
+          </div>
+                                                          <div class="form-group col">
+    {{ form.conference_room_quantity|as_crispy_field }}
+          </div>
+      </div>
+
+                                                      <div class="row">
+                                        <div class="form-group col">
+    {{ form.wi_fi_in_hotel|as_crispy_field }}
+          </div>
+                                                          <div class="form-group col">
+    {{ form.wi_fi_in_hotel_price|as_crispy_field }}
+          </div>
+                                                          <div class="form-group col">
+    {{ form.reception_safe|as_crispy_field }}
+          </div>
+                                                          <div class="form-group col">
+    {{ form.reception_safe_price|as_crispy_field }}
+          </div>
+      </div>
+                <br>
+    <button id="clickSbut" type="submit" name="clickSbut" class="btn btn-primary">Отправить</button>
+          </span>
+
+
+              </span>
+  </form>
+
+<br>
+               <div id="pagination"></div>
+
+</div>
+
+{% endblock %}
+
+  </div>
+</body>
+</html>
